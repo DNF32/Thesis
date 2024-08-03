@@ -1,0 +1,294 @@
+\section{From Diophatine system to expoential sums}
+One of the most famous problems in number theory is the one of Waring: for each $k \geq 2$, is there an $s=s(k)$ such that every positive integer $N$ may be expressed as
+\begin{equation}
+N=x_{1}^{k}+\cdots+x_{s}^{k} ?
+\end{equation}
+Let $g(k)$ be the least integer $s$ having the property that all natural numbers are the sum of at most $s$ positive integral $k$-th powers.
+
+The first instance of this question goes back to Lagrange, who proved that every integer can be written as the sum of four squares of integers. This result is sharp, as evidenced by the fact that 2023 cannot be written as the sum of three or fewer squares. To see this, consider the equation $x_{1}^2 + x_{2}^2 + x_{3}^2 \equiv 2023 \pmod{8}$; an exhaustive argument yields the desired conclusion. In a 1909 paper, Hilbert demonstrated via polynomial identities that $g(k) < \infty$. However, this approach does not provide much quantitative insight.
+
+To address that one can consider a slightly different question, namely the number of representations of $N$ as the sum of $s$ $k$-th powers, denoted by $r_{s,k}(N)$. The idea hinges on the use of generating functions. Consider the series
+
+$$
+g_{k}(z)=\sum_{m=1}^{\infty} z^{m^{k}}
+$$
+which is is absolutely convergent for $|z|<1$.\\
+If one now considers the expression $g_{k}(z)^{s}$, then 
+
+$$
+\begin{aligned}
+g_{k}(z)^{s} & =\left(\sum_{m_{1}=1}^{\infty} z^{m_{1}^{k}}\right)\left(\sum_{m_{2}=1}^{\infty} z^{m_{2}^{k}}\right) \cdots\left(\sum_{m_{s}=1}^{\infty} z^{m_{s}^{k}}\right) \\
+& =\sum_{m_{1}=1}^{\infty} \ldots \sum_{m_{s}=1}^{\infty} z^{m_{1}^{k}+\ldots+m_{s}^{k}} \\
+& =\sum_{n=1}^{\infty} r_{s, k}(n) z^{n}
+\end{aligned}
+$$
+
+where we write
+
+$$
+r_{s, k}(n)=\operatorname{card}\left\{m_{1}, \ldots, m_{s} \in \mathbb{N}: m_{1}^{k}+\ldots+m_{s}^{k}=n\right\}.
+$$
+
+By resorting to Cauchy's integral formula we can recover $r_{s, k}(n)$:
+
+$$
+r_{s, k}(n)=\frac{1}{2 \pi i} \int_{\mathcal{C}} g_{k}(z)^{s} z^{-n-1} \mathrm{~d} z
+$$
+
+in which $\mathcal{C}$ denotes a circular contour, centred at 0, and with radius $r$ satisfying $0<r<1$. For $k=1$, the series can be explicitly computed as $g_{1}(z)=\frac{z}{1-z}$, and one can proceed with calculations to retrieve the coefficients. However, for $k>1$, this process isn't as straightforward.
+
+Instead of working with this infinite series we can't in fact substitute it by a finite Fourier series.
+
+Observe that, if $x_{1}^{k}+\ldots+x_{s}^{k}=N$, then $x_i \leq N^{1/k}$. Define $X=\floor{N^{1/k}}$ and
+$$
+f_{k}(\theta, X)=\sum_{1 \leqslant x \leqslant X} e\left(\theta x^{k}\right).
+$$
+We then have
+$$
+\begin{aligned}
+f_{k}(\theta, X)^{s} & =\left(\sum_{1 \leqslant x_{1} \leqslant X} e\left(\theta x_{1}^{k}\right)\right) \ldots\left(\sum_{1 \leqslant x_{s} \leqslant X} e\left(\theta x_{s}^{k}\right)\right) \\
+& =\sum_{1 \leqslant x_{1} \leqslant X} \cdots \sum_{1 \leqslant x_{s} \leqslant X} e\left(\theta\left(x_{1}^{k}+\ldots+x_{s}^{k}\right)\right) \\
+& =\sum_{1 \leqslant m \leqslant s X^{k}} r_{s, k}^{*}(m) e(\theta m)
+\end{aligned}
+$$
+where
+$$
+r_{s, k}^{*}(m)=\operatorname{card}\left\{m_{1}, \ldots, m_{s} \in \mathbb{N} \cap[1, X]: m_{1}^{k}+\ldots+m_{s}^{k}=m\right\}
+$$
+Thus, by applying the orthogonality relation
+$$
+\int_{0}^{1} e(\theta h) \mathrm{d} \theta= \begin{cases}0, & \text { when } h \in \mathbb{Z} \backslash\{0\} \\ 1, & \text { when } h=0\end{cases}
+$$
+we deduce that 
+$$
+\int_{0}^{1} f_{k}(\theta, X)^{s} e(-\theta N) d \theta=\sum_{1 \leqslant m \leqslant s X^{k}} r_{s, k}^{*}(m) \int_{0}^{1} e(\theta(m-N)) d \theta=r_{s, k}(N).
+$$
+So, to understand \( r_{s, k} \), we need to better understand \( f_k \). Furthermore, the even powers of \( f_k \) also encode number theoretical information about the Waring problem. Namely,
+$$
+\int_{0}^{1}\left|f_{k}(\theta, X)\right|^{2s} d \theta
+$$
+counts the number of solutions of the equation
+\begin{equation}\label{Waring system}
+x_{1}^{k}+\ldots+x_{s}^{k}=x_{s+1}^{k}+\ldots+x_{2s}^{k}
+\end{equation}
+for \(1 \leq x_{i} \leq X\). To see this, write \(\left|f_{k}(\theta, X)\right|^{2s} = f_{k}(\theta, X)^{s} \cdot \overline{f_{k}(\theta, X)}^{s}\) and explicitly compute the product. By using the orthogonality relation, the only exponentials that make a contribution are the ones where the exponent satisfies the condition \(x_{1}^{k} + \ldots + x_{s}^{k} - x_{s+1}^{k} - \ldots - x_{2s}^{k} = 0\). To further understand $f_k$ is the story of the circle method, which, for instance, allow to obtain an assymptic expansiton. In this section we don't stop to examine this function $f_{k}$, but instead define one more auxiliary function $J_{s, k}(X)$ which asymptotics we will study, for more details one the first approach see [Wooley, Circle].
+
+
+For each integers $s \geq 1$ and $k, N \geq 2$ denote by $J_{s, k}(N)$ the number of integral solutions for the following system (called Vinogradov system)
+\begin{equation}\label{Vinagradov system}
+x_{1}^{\ell}+\ldots+x_{s}^{\ell}=x_{s+1}^{\ell}+\ldots+x_{2 s}^{\ell}, \quad(1 \leq \ell \leq k)
+\end{equation}
+with $1 \leq x_{i} \leq X$. Note first that for $J_{k, s}$ we have the identity
+\begin{equation}\label{eq:J quatity solutions}
+\int_{(0,1]^{k}}\left|F_{k}(\boldsymbol{\theta}, X)\right|^{2 s} d\boldsymbol{\theta}=J_{s, k}(X)
+\end{equation}
+
+
+where
+
+$$
+F_{k}(\boldsymbol{\alpha}, X)=\sum_{1 \leq x \leq X} e\left(\alpha_{1} x+\alpha_{2} x^{2}+\ldots+\alpha_{k} x^{k}\right)
+$$
+
+Identity (\ref{eq:J quatity solutions}) then follows in an identical fashion as when talking about $f_{k}$. Note then that we also have
+
+$$
+\int_{0}^{1}\left|f_{k}(\alpha, X)\right|^{2 s} \mathrm{~d} \alpha=\sum_{\left|h_{1}\right| \leq s X} \cdots \sum_{\left|h_{k}\right| \leq s X^{k-1}} \int_{(0,1]^{k}}\left|F_{k}(\boldsymbol{\alpha}, X)\right|^{2 s} e\left(-h_{1} \alpha_{1}-h_{2} \alpha_{2}-\ldots-h_{k-1} \alpha_{k-1}\right) \mathrm{d} \boldsymbol{\alpha}
+$$
+
+by a similar counting argument. By uniformly bounding the integral by $J_{k, s}$ and counting the number of terms in the above $(k-1)$-fold sum we see that
+
+$$
+\int_{0}^{1}\left|f_{k}(\alpha, X)\right|^{2 s} \mathrm{~d} \alpha \ll_{k, s} X^{\frac{k(k-1)}{2}} J_{s, k}(X).
+$$
+
+Relative to the Waring system, (\ref{Waring system}), the Vinogradov system (\ref{Vinagradov system}) displays more symmetries, namely translation-dilation invariance of solutions.
+ Given real numbers \(\lambda\) and \(\xi\) with \(\lambda \neq 0\), the values \(x_{1}, \ldots, x_{2s}\) are solutions to the system
+
+\begin{equation}\label{eq:Vinogradov 2}
+\sum_{i=1}^{s} x_{i}^{j} = \sum_{i=1}^{s} x_{s+i}^{j} \quad 1 \leq j \leq k
+\end{equation}
+
+if and only if they are solutions to the system
+
+$$
+\sum_{i=1}^{s}\left(\lambda x_{i} + \xi\right)^{j} = \sum_{i=1}^{s}\left(\lambda x_{s+i} + \xi\right)^{j} \quad 1 \leq j \leq k.
+$$
+
+The invariance under \(\lambda\) can be seen as each equation is homogeneous of degree \(j\). Now, with \(\lambda = 1\), to understand the invariance under \(\xi \neq 0\), a computation gives
+
+\begin{equation}\label{eq:vinogradov binomial}
+\sum_{i=1}^{s}\left(\left(x_{i} + \xi\right)^{j} - \left(x_{s+i} + \xi\right)^{j}\right) = \sum_{\ell=1}^{j} \binom{j}{\ell} \xi^{j-\ell} \sum_{i=1}^{s} \left(x_{i}^{\ell} - x_{s+i}^{\ell}\right).
+\end{equation}
+
+If \(x_{1}, \ldots, x_{2s}\) are solutions to the system (\ref{eq:Vinogradov 2}), then each term in the inner sum on the right-hand side of (\ref{eq:vinogradov binomial}) vanishes, giving the desired conclusion.
+
+The consequences of this are twofold. There are some implications in number theory, which can be seen in [LillianPierce] and from the point of view of decoupling for the moment curve, this can be seen as an important manifestation of the affine-rescaling property.
+\subsection{Critical exponent}
+When discussing Vinogradov's mean value theorem, it is often referred to as the main conjecture in this context. In this section, we will explore the reasons behind this designation.
+
+To begin, we provide some bounds on \(J_{s, k}(N)\) from the perspective of solving the Vinogradov system. Notably, the diagonal solutions \(X_{j} = X_{s+j} \ (1 \leq j \leq s)\) are trivial solutions to the system. This observation gives us a straightforward lower bound: \(J_{s, k}(N) \geq N^{s}\). 
+
+By considering the case where the sets \(\{X_{1}, \cdots, X_{s}\}\) and \(\{X_{s+1}, \cdots, X_{2s}\}\) are identical as multi-sets, we can slightly improve this lower bound to \(s!N^{s} + O(N^{s-1})\), [Wooley, ICM]. Furthermore, we establish the following upper bound:
+\begin{lem}\label{lem:1st non trivial case}
+     $J_{s, k}(N) \leq n!N^{2 s-n}$ when $s \geq n$.
+\end{lem}
+\begin{proof}
+     The case $s \geq n$. Let $X_{n+1}, \cdots, X_{2 s}$ be chosen arbitrarily from $[N]$, then the value of $\sum_{j=1}^{n} X_{j}^{i}$ is fixed for each $1 \leq i \leq n$. So by Newton-Girard identities, all elementary symmetric functions of the $X_{1}, \cdots, X_{n}$ are determined and therefore $X_{j}$'s are determined up to their order. There are at most $n$ ! different permutations of $\left(X_{1}, \cdots, X_{n}\right)$, so $J_{s, k}(N) \leq n!N^{2 s-n}$.
+\end{proof}
+
+On the other hand, if we consider the analytic representation of $J_{s, k}(N)$, we get the trivial upper bound $N^{2 s}$. However, we can further improve this:
+
+\begin{thm}
+    $J_{s, k}(N) \gg N^{2 s-\frac{k(k+1)}{2}}$.
+\end{thm}
+\begin{proof}
+ If $\left|\alpha_{j}\right| \leq \frac{1}{6 j N^{k}}$ for each $1 \leq j \leq k$, then we have
+
+$$
+\begin{gathered}
+\left|\sum_{j=1}^{k} \alpha_{j} x^{j}\right| \leq \sum_{j=1}^{k}\left|\alpha_{j} x^{j}\right| \leq \sum_{j=1}^{k} \frac{1}{6 k}=\frac{1}{6} \\
+\Re\left(e\left(\sum_{j=1}^{k} \alpha_{j} x^{j}\right)\right)=\cos \left(2 \pi\left(\sum_{j=1}^{k} \alpha_{j} x^{j}\right)\right) \geq \cos \left(\frac{\pi}{3}\right)=\frac{1}{2}
+\end{gathered}
+$$
+
+Therefore,
+
+$$
+\left|F_{k}(\boldsymbol{\alpha}, N)\right|=\left|\sum_{1 \leqslant x \leqslant N}  e\left(\alpha_{1} x+\alpha_{2} x^{2}+\ldots+\alpha_{k} x^{k}\right)\right| \geq \sum_{1 \leqslant x \leqslant N}  \Re\left(e\left(\alpha_{1} x+\alpha_{2} x^{2}+\ldots+\alpha_{k} x^{k}\right)\right) \geq \frac{N}{2}
+$$
+
+So the analytic representation gives
+
+$$
+\begin{aligned}
+J_{s, k}(N) & =\|\left. F_{k}\|\right._{L^{2 s}\left(\mathbb{T}^{n}\right)} ^{2 s} \\
+& \geq \int_{\left|\alpha_{1}\right| \leq \frac{1}{6 n N}} \cdots \int_{\left|\alpha_{n}\right| \leq \frac{1}{6 n N^{n}}}\left(\frac{N}{2}\right)^{2 s} d \alpha_{n} \cdots d \alpha_{1} \\
+& =\left(\frac{N}{2}\right)^{2 s} \prod_{j=1}^{k} \frac{1}{3 j N^{k}} \\
+& =2^{-2 s}(3 k)^{-k} N^{2 s-\frac{1}{2} k(k+1)} \\
+& \gg_{n, s} N^{2 s-\frac{1}{2} k(k+1)}
+\end{aligned}
+$$
+\end{proof}
+
+Combining the above two estimates for the lower bound, we get
+
+\begin{thm}\label{thm:lower bound vinogradov}
+    $J_{s, k}(N) \gg N^{s}+N^{2 k-\frac{k(k+1)}{2}}$.
+\end{thm}
+This is the best-known estimate for the lower bound of \(J_{s, k}(N)\), [Wooley, ICM]. Considering Theorem \ref{thm:lower bound vinogradov}, we see that \(s=\frac{k(k+1)}{2}\) is the critical exponent. Specifically, the estimate \(J_{s, k}(N) \gg N^{s} + N^{2s - \frac{k(k+1)}{2}}\) simplifies to \(J_{s, k}(N) \gg N^{s}\) when \(s > \frac{k(k+1)}{2}\), and to \(J_{s, k}(N) \gg N^{2s - \frac{k(k+1)}{2}}\) when \(s < \frac{k(k+1)}{2}\). This indicates that obtaining a precise bound for \(J_{s, k}(N)\) at the critical exponent \(s=\frac{k(k+1)}{2}\) would allow us to derive accurate bounds for \(J_{s, k}(N)\) for any \(s\). Indeed, since \(J_{s, k}(N)=\left\|F_{k}\right\|_{L^{2s}\left(\mathbb{T}^{k}\right)}^{2s}\), a strong estimate on \(\left\|F_{k}\right\|_{L^{k(k+1)}}\) would enable us to use interpolation of \(L^{p}\) spaces to achieve a good estimate for \(J_{s, k}(N)\) for any \(s\).
+
+
+\begin{thm}\label{thm:vinagradov interpolation}
+ Let $\varepsilon>0$. Suppose
+
+$$
+J_{\frac{k(k+1)}{2}, n}(N) \lesssim N^{\frac{k(k+1)}{2}+\varepsilon}
+$$
+
+then we have $J_{s, k}(N) \lesssim N^{s+\varepsilon}$ for any integer $1 \leq s \leq \frac{k(k+1)}{2}$, and $J_{s, k}(N) \lesssim N^{2 s-\frac{k(k+1)}{2}+\varepsilon}$ for any integer $s \geq \frac{k(k+1)}{2}$.
+    
+\end{thm}
+
+\begin{proof}
+    Recall
+$$
+F_{k}(\boldsymbol{\alpha},N)=\sum_{1 \leqslant x \leqslant N} e\left(\alpha_{1} x+\alpha_{2} x^{2}+\ldots+\alpha_{k} x^{k}\right)
+$$
+
+Then $F_{k}(\boldsymbol{0},N)=N$ and $\left|F_{k}(\boldsymbol{\alpha},N)\right| \leq N$ for any $\alpha \in \mathbb{T}^{k}$, so $\left\|F_{k}\right\|_{\infty}=N$. And by the orthogonal relation of exponential functions, we have $\left\|F_{k}\right\|_{2}^{2}=N$, so $\left\|F_{k}\right\|_{2}=\sqrt{N}$. And the assumption
+
+$$
+J_{\frac{k(k+1)}{2}, k}(N) \lesssim N^{\frac{k(k+1)}{2}+\varepsilon}
+$$
+
+implies that
+
+$$
+\left\|F_{k}\right\|_{k(k+1)} \lesssim N^{\frac{1}{2}+\frac{\varepsilon}{k(k+1)}}
+$$
+
+Then for any $2 \leq p \leq k(k+1)$, by Holder's inequality, for $\frac{1}{p}=\frac{\lambda}{2}+\frac{1-\lambda}{k(k+1)}$, we have
+
+$$
+\|f\|_{p} \leq\|f\|_{2}^{\lambda}\|f\|_{k(k+1)}^{1-\lambda} \lesssim N^{\frac{1}{2}+\frac{(1-\lambda) \varepsilon}{k(k+1)}} \lesssim N^{\frac{1}{2}+\frac{\varepsilon}{k(k+1)}}
+$$
+
+So for any integer $1 \leq s \leq \frac{k(k+1)}{2}$, we have
+
+$$
+J_{s, k}(N)=\|f\|_{2 s}^{2 s} \lesssim N^{s+\frac{2 \varepsilon s}{k(k+1)}} \lesssim N^{s+\varepsilon}
+$$
+
+And for any $p \geq k(k+1)$, by Holder's inequality, for $\frac{1}{p}=\frac{\lambda}{k(k+1)}$, we have
+
+$$
+\|f\|_{p} \leq\|f\|_{k(k+1)}^{\lambda}\|f\|_{\infty}^{1-\lambda} \lesssim N^{1-\frac{\lambda}{2}+\frac{\lambda \varepsilon}{k(k+1)}}=N^{1-\frac{k(k+1)}{2 p}+\frac{\varepsilon}{p}}
+$$
+
+So for any integer $s \geq \frac{k(k+1)}{2}$, we have
+
+$$
+J_{s, k}(N)=\|f\|_{2 s}^{2 s} \lesssim N^{2 s-\frac{k(k+1)}{2}+\varepsilon}
+$$
+\end{proof}
+Motivated by Theorem \ref{thm:lower bound vinogradov}, the main conjecture in Vinogradov's mean value theorem asserts that
+\begin{conj}[Main Conjecture]
+    For each $s \geq 1$ and $k, N \geq 2$ we have the upper bound
+$$
+J_{s, k}(N) \lesssim_{\varepsilon}N^{s+\varepsilon}+N^{2 s-\frac{k(k+1)}{2}+\varepsilon}, \quad \forall \varepsilon>0
+$$
+\end{conj}
+
+In view of Theorem \ref{thm:vinagradov interpolation}, it suffices to show the statement for the case that $s$ is the critical exponent, i.e. $s=\frac{k(k+1)}{2}$.
+
+\begin{conj}\label{conj:vinagradov}
+    For each $n, N \geq 2$, we have the upper bound
+
+$$
+J_{\frac{k(k+1)}{2}, n}(N) \lesssim_{\varepsilon }N^{\frac{k(k+1)}{2}+\varepsilon}, \quad \forall \varepsilon>0
+$$
+\end{conj}
+
+
+For the case $n=1$, Lemma \ref{lem:1st non trivial case} implies that $J_{s, k}(N) \leq N^{2 s-1}$. So the case $n=2$ is the first non-trivial case for the main conjecture.
+
+
+\begin{proof}[Proof of Conjecture \ref{conj:vinagradov}]
+    Let $D_N=\text{diag}(N,\dots,N^{k})$ so that $\Gamma(Nt)= D_{N}\Gamma(t)$.
+
+    Thus,
+\begin{equation}
+    F_{k}(\boldsymbol{\alpha},N) = \sum_{1\leq j\leq N} e(\Gamma(j)\cdot\alpha) = \sum_{1\leq j\leq N} e\left(\Gamma(\frac{j}{N})\cdot D_{N}\alpha\right)
+\end{equation}
+and so 
+\begin{equation}
+    \int_{[0,1]^k} |f_{k}(\alpha,N)|^{k(k+1)}\,d\alpha = N^{-\frac{k(k+1)}{2}} = \int_{\prod_{l=1}^{k}[0,N^{l}] } \left|\sum_{1\leq j\leq N} e\left(\Gamma(\frac{j}{N})\cdot \alpha\right) \right|^{k(k+1)}\,d\alpha.
+\end{equation}
+Observing that the function $\alpha_{l}\xrightarrow[]{}e((\frac{j}{N})^{l}\alpha_{l})$ is $N^{l}$-periodic, we can break it's integral over $[0,N^{k}]$ into $N^{k-l}$ pieces of length $N^{l}$,
+
+\begin{equation}\label{eq:proof conj}
+    =  N^{-\frac{k(k+1)}{2}-\frac{k(k-1)}{2}} \int_{[0,N^{k}]^k} \left|\sum_{1\leq j\leq N}e\left(\Gamma(\frac{j}{N})\cdot \alpha\right) \right|^{k(k+1)}\,d\alpha.
+\end{equation}
+
+At this step we can identify a decoupling problem. For $\Part(1/N):=\{ [\frac{t-1}{N},\frac{t}{N}]:\, t=1,\dots,N\}$ consider the family of function $(g_{J})_{J\in\Part(1/N)})$ defined by
+
+$$
+g_{J}(x) = e\left(\Gamma(\frac{j}{N})\cdot \alpha\right) \phi_{N^{k}}(x)
+$$
+
+where $\phi_{N^{k}}$ is a smooth function satisfying, $|\phi_{N^{k}}(x)|\geq 1$ for $x\in B(0,1)$, $\|\phi_{N^{k}}\|_{p} \lesssim N^{\frac{k^2}{p}}$ and $\supp(\hat{\phi_{N^{k}}}) \subset B(0,N^{-k})$.
+
+Since $\Gamma(t/N)\in \calU_{J}$, then $B(\Gamma(t/N),N^{-k})\subset \calU_{J} + B(0,N^{-k}) \subset 2\calU_{J}$ we can apply (moment curve decoupling)
+
+%coment about localized \phi
+%Where $\phi:\R^{k}\xrightarrow{} \C$ satisfies $\supp(\hat{\phi})\in B(0,1)$  and $|\phi(x)|\geq 1$ for  $x\in B(0,1)$ and  $\phi_{N^{k}}$ denotes the rescaled function $\phi(\frac{\cdot}{N^{k}})$.
+
+\begin{equation}
+    RHS(\ref{eq:proof conj}) \leq N^{-k^{2}} \int_{\R^{k}} \left|\sum_{J\in\Part(1/N)}g_{J} \right|^{k(k+1)}
+\end{equation}
+\begin{equation}
+    \leq N^{-k^{2}} N^{\varepsilon} \left( \sum_{J\in \Part(1/N)}\|g_{J} \|_{2}\right)^{\frac{k(k+1)}{2}} = N^{-k^{2}} N^{\varepsilon} (\#\Part(1/N)^{1/2}N^{\frac{k}{k+1}})^{k(k+1)} = N^{\frac{k(k+1)}{2}+\varepsilon}
+\end{equation}
+\end{proof}
+

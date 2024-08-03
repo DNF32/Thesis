@@ -1,0 +1,141 @@
+\documentclass[10pt,twoside,notitlepage]{report}
+%\usepackage[utf8]{inputenc}
+%\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm,headsep=1cm,headheight=2cm]{geometry}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{pgfplots}
+%\pgfplotsset{compat=newest}
+%\usepgfplotslibrary{fillbetween}
+\linespread{1.25}
+\usepackage{float}
+\usepackage{amsfonts,latexsym,amsthm,amssymb,amsmath,amscd,euscript,graphicx,subfig, tikz-cd,bbm}
+\usepackage{framed}
+\usepackage{fullpage}
+\usepackage{hyperref}
+    \hypersetup{colorlinks=true,citecolor=blue,urlcolor =black,linkbordercolor={1 0 0}}
+\usepackage{enumitem}
+\usepackage{esint}
+\usepackage[backend=biber, style=alphabetic]{biblatex}
+\usepackage{amssymb}
+\addbibresource{references.bib}
+
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{float}
+\titleformat{\chapter}[display]   
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}   
+\titlespacing*{\chapter}{0pt}{-30pt}{40pt}
+
+\graphicspath{ {images/} }
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{clm}[thm]{Claim}
+\newtheorem*{clm*}{Claim}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem*{lem*}{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem*{cor*}{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{prop*}{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{rmk}{Remark}[section]
+\newtheorem*{rmk*}{Remark}
+\newtheorem{note}{Note}[section]
+\newtheorem*{note*}{Note}
+
+
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{exmp}{Example}[section]
+\newtheorem{nexmp}[exmp]{Non-example}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\NN}{\mathcal{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\FF}{\mathcal{F}}
+\newcommand{\TT}{\mathcal{T}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\Pcal}{\mathcal{P}}
+\newcommand{\e}{\varepsilon}
+\newcommand{\w}{\omega}
+\newcommand{\topO}{\mathcal{O}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Scal}{\mathcal{S}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\calU}{\mathcal{U}}  %Box in space
+\newcommand{\freqU}{\calU^\circ} % Box in frequency
+\newcommand{\Part}{\mathcal{P}} % Power set
+\newcommand{\Dec}{\mathcal{D}} %decoupling constant 
+\newcommand{\BilinDec}{\mathcal{B}} %bilinear decoupling constant 
+\newcommand{\nc}{\newcommand}
+\newcommand{\scale}[1]{\delta^{\left(\frac{k}{k+1}\right)^{#1}}}
+\newcommand{\scaleinv}{\delta^{-\varepsilon k/(k+1)varepsilon}}
+\nc{\on}{\operatorname}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\dist}{\text{dist}}
+\newcommand{\intslash}{\mathrlap{\int}\hspace{0.5em}\bigg{/} \int}
+\newcommand{\lpl}{L^{p_l}(\R^l)}
+
+
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\nul}{null}
+\DeclareMathOperator{\esup}{ess\,sup}
+\DeclareMathOperator{\mat}{mat}
+\DeclareMathOperator{\lcm}{lcm}
+
+\usepackage{mathtools}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\nsub}{\trianglelefteq}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter\inner{\langle}{\rangle}
+
+\newcommand\SetSymbol[1][]{%
+\nonscript\:#1\vert
+\allowbreak
+\nonscript\:
+\mathopen{}}
+\DeclarePairedDelimiterX\Set[1]\{\}{\renewcommand\given{\SetSymbol[\delimsize]}#1}
+\DeclarePairedDelimiterXPP\EE[1]{\E}{\lparen}{\rparen}{}{\renewcommand\given{\SetSymbol[\delimsize]}#1} % Conditional expectation \EE{ f \given A }
+\DeclarePairedDelimiterX\inn[2]{\langle}{\rangle}{#1,#2}
+\def\biginn#1#2{\inn[\big]{#1}{#2}}
+
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\let\oldinner\inner
+\def\inner{\@ifstar{\oldinner}{\oldinner*}}
+\makeatother
+
+
+
+\begin{document}
+%\chapter{Parabola}
+\chapter{The parabola case}
+\input{Chapters/decoupling_parabola/parabola.tex}
+\chapter{Moment curve}
+\input{Chapters/General curve/moment_curve}
+\input{Chapters/General curve/Vinagradov.tex}
+\chapter{Second Application}
+\input{Chapters/second_app/energy.tex}
+\input{Chapters/second_app/Going_beyond.tex}
+\input{Chapters/second_app/Vinogradov-exemple.tex}
+
+
+
+\end{document}

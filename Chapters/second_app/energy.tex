@@ -1,0 +1,106 @@
+Small Note: This section presents a second application of decoupling theory. Our goal is to introduce the idea that the decoupling constant can be improved. Furthermore, we will use the 6-correlation energy problem as a springboard to discuss the new high-low method and sketch its potential application.\\
+
+
+Given an integer $k \geq 2$ and a finite set $\Lambda \subset \mathbb{R}^n$, we introduce its $k$-additive energy
+$$
+\mathbb{E}_k(\Lambda)=\left|\left\{\left(\lambda_1, \ldots, \lambda_{2 k}\right) \in \Lambda^{2 k}: \lambda_1+\cdots+\lambda_k=\lambda_{k+1}+\cdots+\lambda_{2 k}\right\}\right| .
+$$
+
+Trivially we get the lower bound \(\left|\mathbb{E}_k(\Lambda)\right| \geq |\Lambda|^k\) which in fact be seen as essenaly sharp for some sets. By considering a lacunary sequence, this is the case for every \(k\). Consider \(\Lambda = \{2^{1}, 2^{2}, \cdots, 2^{N}\}\) and for \(j \in \{1, \ldots, N\}\), let \(f_{j}(x) = a_{j} e\left(2^{j} x\right)\) with a coefficient \(a_{j} \in \mathbb{C}\). In the typical way, we can encode \(\mathbb{E}_k(\Lambda)\) as an \(L^p\) norm of an exponential sum, with \(p = 2k\):
+
+\begin{equation}\label{eq:energy_lacunary}
+\mathbb{E}_k(\Lambda) = \left\|\sum_{j=1}^{N} a_{j} e\left(2^{j} x\right)\right\|_{L^{p}([0,1])}^{p} = \sum_{1 \leq j_{1}, \ldots, j_{2k} \leq N} a_{j_{1}} \cdots a_{j_{k}} \overline{a_{j_{k+1}}} \cdots \overline{a_{j_{2k}}} \delta_{\mathbf{j}},
+\end{equation}
+
+where \(\delta_{\mathbf{j}} = 1\) if \(2^{j_{1}} + \cdots + 2^{j_{k}} = 2^{j_{k+1}} + \cdots + 2^{j_{2k}}\) and zero otherwise. By the uniqueness of representations in base 2, this identity occurs precisely when \(\{j_{1}, \ldots, j_{k}\} = \{j_{k+1}, \ldots, j_{2k}\}\) as sets. Thus, \eqref{eq:energy_lacunary} is comparable to \(\left(\sum_{j} |a_{j}|^{2}\right)^{k}\), and upon taking \(2k\)-th roots, this proves that \(\mathbb{E}_k(\Lambda) \lesssim |\Lambda|^{k}\).\\
+
+
+
+
+If we further impose some separation condition on $\Lambda$, decoupling theory allows use to get some initial results.
+
+By using $\ell^2$ decoupling for the parabola we get (repeat what is done in Cor.3.7 of the Moment curve)  specialised to the case of exponential sums.
+\begin{thm}\label{thm:exponetial decoupling parabola}
+For each collection $\Lambda$ consisting of $\delta$-separated points on $\mathbb{P}$, each ball $B_{r}$ of radius $r \geq \delta^{-2}$ in $\mathbb{R}^2$, and each $a_\lambda \in \mathbb{C}$, we have
+\begin{equation}\label{eq:exponetial decoupling parabola}
+\frac{1}{r^2} \int_{B(0, r)}\left|\sum_{\lambda \in \Lambda} e(\lambda \cdot x)\right|^6 d x \lesssim_\epsilon \delta^{-\epsilon}|\Lambda|^3.
+\end{equation}
+\end{thm}
+
+\begin{thm}
+ If $\Lambda$ is a $\delta$-separated subset of $\mathbb{P}^1$, then
+\begin{equation*}
+\mathbb{E}_3(\Lambda) \lesssim_\epsilon \delta^{-\epsilon}|\Lambda|^3 .
+\end{equation*}
+\end{thm}
+\begin{proof}
+By using Theorem \ref{thm:exponetial decoupling parabola} the LHS of \ref{eq:exponetial decoupling parabola} is equal to
+$$
+\begin{aligned}
+& \frac{1}{r^2} \sum_{\left(\lambda_1, \ldots, \lambda_6\right) \in T} \int_{B(0, r)} e\left(\left(\lambda_1+\lambda_2+\lambda_3-\lambda_4-\lambda_5-\lambda_6\right) \cdot x\right) d x \\
+& \quad+\frac{1}{R^2} \sum_{\left(\lambda_1, \ldots, \lambda_6\right) \notin T} \int_{B(0, r)} e\left(\left(\lambda_1+\lambda_2+\lambda_3-\lambda_4-\lambda_5-\lambda_6\right) \cdot x\right) d x,
+\end{aligned}
+$$
+where
+$$
+T=\left\{\left(\lambda_1, \ldots, \lambda_6\right) \in \Lambda^6: \lambda_1+\lambda_2+\lambda_3=\lambda_4+\lambda_5+\lambda_6\right\} .
+$$
+
+The first average equals $\pi \mathbb{E}_3(\Lambda)$ and the second term converges to zero since
+$$
+\lim _{r \rightarrow \infty} \frac{1}{r^2} \int_{B(0, r)} e(\lambda \cdot x) d x=0.
+$$
+\end{proof}
+
+By using a Prannik-Seeger iteration, in the style of (result of the moment curve; to be written), we can obtain the analogous results of Theorem \ref{thm:exponetial decoupling parabola} for $\mathbb{S}^1$ instead of $\mathbb{P}^1$. Furthermore, using $\ell^2$ decoupling for compact hypersurfaces with positive definite second fundamental form we get a similar results for the $2$-energy. We summary this results in the following theorem:
+\begin{thm}[Ciprian, Theorem 13.21]\label{thm:separation energy}
+If $\Lambda$ is a $\delta$-separated subset of $\mathbb{S}^1$, then
+$$
+\mathbb{E}_3(\Lambda) \lesssim_\epsilon \delta^{-\epsilon}|\Lambda|^3 .
+$$
+If $\Lambda$ is a $\delta$-separated subset of either $\mathbb{S}^2$ or $\mathbb{P}^2$, then
+$$
+\mathbb{E}_2(\Lambda) \lesssim_\epsilon \delta^{-\epsilon}|\Lambda|^2.
+$$
+\end{thm}
+Experts in the field suggest that this type of estimate should hold even without the need for the separating condition. This estimate is intricately linked to the problem in incident geometry, which has been successfully proven for $\mathbb{P}^2$ and has yielded partial results for $\mathbb{P}^1$ and $\mathbb{S}^1$, which we will see below. However, as we are only tangentially addressing this topic, we have chosen to temper the exposition. For more detailed information, refer to [BD014] and [Ciprian].
+
+\begin{thm}[Ciprian, Thm]\label{thm: incidence}
+    The number of repetitions of a given angle among $N$ points in the plane is $O\left(N^2 \log N\right)$.
+\end{thm}
+This is enough to show:
+\begin{thm}[Ciprian, Thm]
+     For each finite set $\Lambda \subset \mathbb{P}^2$, we have
+$$
+\mathbb{E}_2(\Lambda) \lesssim|\Lambda|^2 \log |\Lambda| .
+$$
+\end{thm}
+\begin{proof}
+Let $S$ consist of all points $(\xi, \eta)$ with $\lambda=\left(\xi, \eta, \xi^2+\eta^2\right) \in \Lambda$. Let us assume that for some $\lambda_i=\left(\xi_i, \eta_i, \xi_i^2+\eta_i^2\right), 1 \leq i \leq 4$, we have
+$$
+\lambda_1+\lambda_2=\lambda_3+\lambda_4=(A, B, C)
+$$
+
+An easy computation reveals that for each $1 \leq i \leq 4$,
+$$
+\left(\xi_i-\frac{A}{2}\right)^2+\left(\eta_i-\frac{B}{2}\right)^2=\frac{2 C-A^2-B^2}{4} .
+$$
+
+We also note that
+$$
+\left(\xi_1, \eta_1\right)+\left(\xi_2, \eta_2\right)=\left(\xi_3, \eta_3\right)+\left(\xi_4, \eta_4\right)
+$$
+
+The first equality tells us that the four points $P_i=\left(\xi_i, \eta_i\right)$ lie on a circle, while the second one tells us that they determine a parallelogram. We conclude that they in fact determine a rectangle. Thus, each additive quadruple $\left(\lambda_1, \ldots, \lambda_4\right)$ determines four distinct right angles in $S$, and it suffices to apply Theorem \ref{thm: incidence}
+\end{proof}
+
+The partial results can be see in the following rescaled problem the one of the 6-order correlation for integer lattice points on the circle $x^2+y^2=m$. Let  $\Lambda_m$ be
+the set of Gaussian integers with norm $m$ and $N=\left|\Lambda_m\right|$, then we want to study $\mathbb{E}_{3}(\Lambda_{m})$. Trivially we have $\mathbb{E}_{3}(\Lambda_{m})=O\left(|\Lambda_{m}|^4\right)$ and a bound of $O_{\varepsilon}\left(|\Lambda_{m}|^{3+\varepsilon}\right)$ is conjectured. Bourgain in [KKW, Theorem 2.2] showed that $\mathbb{E}_{3}(\Lambda_{m})=o\left(|\Lambda_{m}|^4\right)$ as $|\Lambda_{m}| \rightarrow \infty$. In [BB Two sum, Section 2], he showed that $\mathbb{E}_{3}(\Lambda_{m})=O\left(|\Lambda_{m}|^{7 / 2}\right)$, making use of a more general version of (referir resultado usado aqui)Szemerédi-Trotter theorem.\\
+
+
+Referring back to Theorem \ref{thm:separation energy} a connection with decoupling is already evident, however this connection can be  strengthened. In fact, we will see that improvement decoupling constant is the next big step in understanding decoupling and as an application we will approach this conjectured bound.
+
+
+
+
+

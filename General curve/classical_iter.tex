@@ -1,0 +1,222 @@
+\section{Classical Iteration}
+
+
+The iteration done for both the parabola and the general moment curve case 
+\begin{center}
+\begin{tabular}{|c|c|}
+  \hline
+  Reduction 1 & $\Dec(\delta)\leq C_1 \log(\delta^{-1})\BilinDec(\delta)$ \\ \hline
+  Reduction 2 & $\BilinDec(\delta)\leq C_2 \delta^{-b} \BilinDec_{b,b}(\delta)$ \\ \hline
+  Key & $\BilinDec_{a,b}(\delta)\leq C_3\BilinDec_{2b,b}(\delta)$ \\ \hline
+  Swap & $\BilinDec_{a,b}(\delta)\leq \BilinDec_{b,a}(\delta)^{\frac{1}{2}}\Dec(\delta^{1-b})^{\frac{1}{2}}$\\ \hline
+\end{tabular}
+\end{center}
+We can use this tools to build an iteration.
+Without loss of generality we can assume $C_1,\, C_2,\,C_3 \geq 1$.
+
+By combining (Key) and (Swap) we get,
+\begin{equation}
+    \BilinDec_{2b,b}(\delta) \leq \BilinDec_{b,a}(\delta)^{\frac{1}{2}}\Dec(\delta^{1-b})^{\frac{1}{2}} \leq C_3 \BilinDec_{4b,2b}(\delta)^{\frac{1}{2}}\Dec(\delta^{1-b})^{\frac{1}{2}}.
+\end{equation}
+
+Making $N$ steps
+\begin{align}\label{eq:iter}
+    \BilinDec_{2b,b}(\delta) &\leq \prod_{j=1}^{N} C_{3}^{2^{-j}}\,\,
+    \BilinDec_{2^{N+1}b,2^{N}b}(\delta)^{\frac{1}{2^{N}}}\prod_{j=1}^{N} \Dec(\delta^{1-2^{j-1}b})^{\frac{1}{2^{N}}} \notag \\
+    &\leq  C_3\,\,
+    \BilinDec_{2^{N+1}b,2^{N}b}(\delta)^{\frac{1}{2^{N}}} \prod_{j=1}^{N} \Dec(\delta^{1-2^{j-1}b})^{\frac{1}{2^{N}}}
+\end{align}
+Recall that for \ref{eq:iter} to make sense we need $b\leq 2^{-(N+1)}$. By taking  $b\leq 2^{-(N+1)}$ and using (Reduction 1) and (Reduction 2).
+\begin{equation}
+    \Dec(\delta) \leq C_1 \log(\delta^{-1})\BilinDec(\delta)
+\end{equation}
+\begin{equation}
+    \leq C_1 C_2 \log(\delta^{-1})\delta^{-b} \BilinDec_{b,b}(\delta)
+\end{equation}
+\begin{equation}
+    \leq  \underbrace{C_1 C_2 C_{3}^{2}}_{C_4}\log(\delta^{-1})
+    \underbrace{\delta^{-b} \BilinDec_{2^{N+1}b,2^{N}b}(\delta)^{\frac{1}{2^{N}}}}_{\delta^{-\frac{1}{2^{N}}}}\prod_{j=1}^{N} \Dec(\delta^{1-2^{j-N-2}})^{\frac{1}{2^{N}}}
+\end{equation}
+In this steps we require $\delta \in 2^{\Z}$. We this we proved the following:
+\begin{lem}\label{lem: general iteration}
+    Let $N \in \N$. For $\delta \in (0,1)\cap 2^{\Z}$,
+    \begin{equation}\label{eq:pre std.decou.}
+     \Dec(\delta)\leq  C_4 \log(\delta^{-1})
+    \delta^{-\frac{1}{2^{N}}}\prod_{j=1}^{N} \Dec(\delta^{1-2^{j-N-2}})^{\frac{1}{2^{j}}}.
+    \end{equation}
+\end{lem}
+\begin{rmk}
+    We can use this expression to conclude de main theorem. Tell them how: fix if $\lambda$ is true then $\lambda -\varepsilon$.
+\end{rmk}
+
+We can combine Theorem \ref{thm:main} with Lemma \ref{lem: general iteration},
+Combining Theorem \ref{thm:main} with Lemma \ref{lem: general iteration} gives the following result.
+\begin{lem}\label{lem: optimize}
+Let $N \in \N$. For $\delta \in (0,1)\cap 2^{\Z}$,
+\begin{equation}
+    \Dec(\delta)\leq C_5 \log(\delta^{-1})\delta^{\frac{\varepsilon}{2^N}(1 + \frac{N}{4}-\frac{1}{\varepsilon})} C_{\varepsilon}^{1-\frac{1}{2^N}} \delta^{-\varepsilon}. 
+\end{equation}
+\end{lem}
+\begin{proof}
+    By plugging in Theorem \ref{thm:main} into the RHS of \ref{eq:pre std.decou.} we can the corresponding exponent in the $N$ product as follows:
+    \begin{equation}
+        -\varepsilon  \sum_{j=1}^{N}(1-2^{j-N-2})2^{-j} = -\varepsilon \left[\sum_{j=1}^{N}2^{-j} - \sum_{j=1}^{N}2^{-N-2}\right] = -\varepsilon [1- 2^{-N}(1+\frac{N}{4})].
+    \end{equation}
+    By plugging this into \ref{eq:pre std.decou.} the desired claim follows.
+\end{proof}
+\begin{lem}\label{lem:dyadic prop}
+    Fix $0<\varepsilon<1/10$ and suppose that $N\in \N$ such that $N \sim 1/\varepsilon$ and 
+    $$
+    1-\frac{N}{4}-\frac{1}{\varepsilon}\geq 1.
+    $$
+    Then, for $\delta \in (\delta_n)_{n\in\N}$, such that $\delta_n = 2^{-2^{10N}n}$, we have,
+    $$
+    \Dec(\delta) \leq C_4 C_{\varepsilon}^{1-\frac{1}{2^N}} \delta_{n}^{-\varepsilon}.
+    $$
+\end{lem}
+\begin{proof}
+    Since the hypothesis of Lemma \ref{lem: optimize} are meet,
+    $$
+     \Dec(\delta)\leq C_5 \log(\delta^{-1})\delta^{\frac{\varepsilon}{2^N}(1 + \frac{N}{4}-\frac{1}{\varepsilon})} C_{\varepsilon}^{1-\frac{1}{2^N}} \delta^{-\varepsilon} \leq 
+    $$
+    $$
+    \leq C_5 \log(\delta^{-1})\delta^{\frac{\varepsilon}{2^N}} C_{\varepsilon}^{1-\frac{1}{2^N}} \delta^{-\varepsilon}. 
+    $$
+
+    So  the claim follows by verifying,
+    $$
+    \log(\delta^{-1})\delta^{\frac{\varepsilon}{2^N}} \lesssim 1.
+    $$
+
+    This can be done by the following observations. Since $N\sim \frac{1}{\varepsilon}$ and $\varepsilon \leq 1/10$ (we can always make it smaller) 
+    $$
+    \delta^{\frac{\varepsilon}{2^N}} \leq \delta^{\frac{1}{2^{2N}}}\leq 2^{-2^{8N}n}.
+    $$
+
+    On another hand, $\log(\delta^{-1})=\log(2) 2^{2^{10N}n}$ and 
+    $$
+    2^{10N}\leq 2^{\frac{2^{8N}n}{2}}, \quad n\leq 2^\frac{2^{8N}n}{2}.
+    $$
+\end{proof}
+
+We now use almost multiplicativity to upgrade the result to $\delta \in(0,1)$. 
+\begin{lem}\label{lem:iteration prop}
+Let $0<\varepsilon<1/10$ and take $N\in\N$ as in Lemma \ref{lem:dyadic prop}. Then there is some $a >0$ such that we find for all $\delta \in (0,1)$
+\begin{equation}
+\label{eq:IntermediateResultIIMomentCurve}
+D(\delta) \leq C_{8} 2^{2^{10 a/\varepsilon}} C_\varepsilon^{1-\frac{1}{2^{a/\varepsilon}}} \delta^{-\varepsilon}.
+\end{equation}
+\end{lem}
+
+\begin{proof}
+Let $N$ be like as in Lemma \ref{lem:dyadic prop} and $\delta \in (\delta_n)_{n\in\N}$, such that $\delta_n = 2^{-2^{10N}n}$. If $\delta \in (\delta_{1},1]$, we use the trivial estimate
+\begin{equation*}
+\mathcal{D}_3(\delta) \leq \delta^{-1/2} \leq 2^{\frac{1}{2} \cdot 2^{10N}}.
+\end{equation*}
+If $\delta \in (\delta_{n+1},\delta_n]$ for $n \geq 1$, then submultiplicativity and Lemma \ref{lem:dyadic prop} imply
+
+\begin{equation}
+    \Dec(\delta) \leq \Dec(\delta_{n+1}) \leq \Dec(\delta_n)\Dec(\delta_{n+1}/  \delta_n) \leq (C_{7}C_{\varepsilon}^{1-\frac{1}{2^N}} \delta_{n}^{-\varepsilon})(\delta_n / \delta_{n+1})^{1/2}.
+\end{equation}
+\begin{equation}
+    \leq C_{7}C_{\varepsilon}^{1-\frac{1}{2^N}}2^{\frac{1}{2} \cdot 2^{10N}} \delta^{-\varepsilon}.
+\end{equation}
+Taking the two estimates together gives
+
+\begin{equation*}
+    \Dec(\delta) \leq C_{7}C_{\varepsilon}^{1-\frac{1}{2^N}}2^{ 2^{10N}} \delta^{-\varepsilon}
+\end{equation*}
+for holds for all $\delta \in (0,1)$ with $N$ given by (prop do $\sim$). \\
+
+Now we can further simplify this expression by using the monotonicity of $N$. Since $N \sim \frac{1}{\varepsilon}$ we can take $a>0$ such that, $2^N \leq 2^{a/\varepsilon}$. We obtain our claim
+
+\begin{equation*}
+D(\delta) \leq C_{8} 2^{2^{10 a/\varepsilon}} C_\varepsilon^{1-\frac{1}{2^{a/\varepsilon}}} \delta^{-\varepsilon}.
+\end{equation*}
+\end{proof}
+
+We bootstrap this bound to find the following:
+\begin{lem}
+\label{lem:IntermediateResultMomentCurveIII}
+Let $0<\varepsilon<\varepsilon_{0}$, where $\varepsilon_{0}=\varepsilon_{0}(C_{8})$, then for $\delta \in (0,1)$, we have
+\begin{equation*}
+\Dec(\delta) \leq 2^{2^{100a/\varepsilon}} \delta^{-\varepsilon}.
+\end{equation*}
+\end{lem}
+\begin{proof}
+Let $P(C,\lambda)$ be the statement that $D(\delta) \leq C \delta^{-\lambda}$ for all $\delta \in (0,1)$. Lemma \ref{lem:iteration prop} implies that:
+\begin{equation*}
+P(C_\varepsilon,\varepsilon) \Rightarrow P(C_{8} \cdot 2^{2^{10 a/\varepsilon}} C_\varepsilon^{1-1/2^{a/\varepsilon}}, \varepsilon).
+\end{equation*}
+After $M$ iterations of the above implication, we obtain
+\begin{equation*}
+P(C_\varepsilon,\varepsilon) \Rightarrow P((C_{8} \cdot 2^{2^{10 a/\varepsilon}} )^{\sum_{j=0}^{M-1} (1-1/2^{a/\varepsilon})^j} C_\varepsilon^{(1-1/2^{a/\varepsilon})^M}, \varepsilon).
+\end{equation*}
+We can take limits
+\begin{equation*}
+C_\varepsilon^{(1-1/2^{a/\varepsilon})^M} \rightarrow_{M \to \infty} 1, \quad \sum_{j=0}^{M-1} (1-1/2^{a/\varepsilon})^j \rightarrow_{M \to \infty} 2^{a/\varepsilon}.
+\end{equation*}
+Hence, letting $M \to \infty$, for $0<\varepsilon<1/10$ we obtain
+\begin{equation*}
+P(C_{8}^{2^{a/\varepsilon}} \cdot 2^{ 2^{11a/\varepsilon}}, \varepsilon).
+\end{equation*}
+By choosing  $0<\varepsilon<\varepsilon_0(C_{8})$ appropriately we find for all $\delta \in (0,1)$
+\begin{equation*}
+D(\delta) \leq C_{8}^{2^{a/\varepsilon}} 2^{2^{11 a/\varepsilon} } \delta^{-\varepsilon} \leq 2^{2^{100 a/\varepsilon}} \delta^{-\varepsilon}.
+\end{equation*}
+This finishes the proof.
+\end{proof}
+
+
+We can write for $0<\varepsilon<\varepsilon_0$
+\begin{equation}
+\label{eq:TripleExponentialBoundII}
+D(\delta) \leq A^{A^{1/\varepsilon}} \delta^{-\varepsilon}
+\end{equation}
+for some $A=A(a) \geq e$. It suffices to prove (novo improvement para a parabola do Zane) with exponentials and logarithms based on $A$.
+
+\begin{proof}[Proof~of~Theorem (novo improvement para a parabola do Zane)]
+We optimize \eqref{eq:TripleExponentialBoundII} by choosing $\varepsilon=\varepsilon(\delta)$. 
+Let 
+\begin{equation}
+\label{eq:ChoiceEps}
+B = \log_A(1/\delta) > 1, \quad \eta = \log_A (B) - \log_A \log_A(B), \quad \varepsilon = 1/\eta.
+\end{equation}
+ This leads to the first constraint
+\begin{equation}
+\label{eq:ConstraintI}
+\delta < A^{-1}.
+\end{equation}
+The constraint on $\varepsilon_0$ translates to
+\begin{equation*}
+\varepsilon = \frac{1}{\eta} \leq \varepsilon_0 \Rightarrow \frac{1}{\varepsilon_0} \leq \log_A (B / \log_A (B)) \leq \log_A( B) = \log_A (\log_A (1/\delta)).
+\end{equation*}
+This gives the condition on $\delta$:
+\begin{equation}
+\label{eq:CondDelta}
+\delta < (A^{A^{1/\varepsilon_0}})^{-1} = \delta_0.
+\end{equation}
+It is straight-forward by \eqref{eq:ChoiceEps} that
+\begin{equation*}
+A^{1/\varepsilon} \leq \varepsilon \log_A(1/\delta).
+\end{equation*}
+
+For this reason we obtain
+\begin{equation*}
+A^{A^{1/\varepsilon}} \delta^{-\varepsilon} \leq \exp_A (2 \varepsilon \log_A(1/\delta)) \leq \exp_A( \frac{4 \log_A(1/\delta)}{\log_A \log_A (1/\delta)}).
+\end{equation*}
+In the above display we used that
+\begin{equation*}
+\varepsilon = \frac{1}{\log_A B - \log_A \log_A B} \leq \frac{2}{\log_A B},
+\end{equation*}
+which is true for $\log_A B \leq B^{1/2}$. This is true because $A \geq e$ and $B \geq 1$.
+Finally, we find with $a = 1/\log(A) \leq 1$ 
+\begin{equation*}
+\begin{split}
+\exp_A( \frac{4 \log_A(1/\delta)}{\log_A \log_A (1/\delta)}) &= \exp_A \big( \frac{4 \log(x)}{\log( a \log(1/\delta))} \big) \\
+&\leq \exp_A \big( \frac{8 \log(x)}{\log( \log(1/\delta))} \big) = \exp \big( \frac{4 \log(A) \log(x)}{\log( a \log(1/\delta))} \big).
+\end{split}
+\end{equation*}
+In the estimate we used $\log(a \log(1/\delta)) \geq \log ( \log( 1/\delta))/2$, which amounts to $\delta \leq \exp( - \log(A)^2)$. This is true by \eqref{eq:CondDelta}, and the proof is complete.
+
+\end{proof}

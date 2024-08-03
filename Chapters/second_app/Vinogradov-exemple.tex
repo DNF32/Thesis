@@ -1,0 +1,176 @@
+\subsection{Start}
+To better understand the improvement done in upper bound of the decoupling constant, we delve into the inequality $$\left(\log \frac{1}{\delta}\right)^{1 / 6} \lesssim D_{6}(\delta).$$ Bourgain initially tackled this inequality within the framework of the discrete restriction problem,   (Add a citation for this) employing arguments related to Gauss sums which in essence we will present, see [PDF Weyl sums]. This approach proves particularly insightful as it serves as a canonical testing example for the paraboloid in higher dimensions, yielding a logarithmic lower bound where the exponent is determined by the dimension. A thorough examination of this can be found in [chapter 11,].  Our focus here is to re-examine this example through the lens of the Vinogradov mean value theorem.  We've previously observed that the decoupling constant for the moment curve at the critical exponent provides an upper bound for the Vinogradov.  Therefore, to establish a lower bound for the decoupling constant of the parabola, we aim to find a corresponding lower bound for the quadratic Vinogradov.
+
+
+
+When $n=2$, and when $s=3$ is the critical exponent.
+We will present the proof that $J_{3,2}(N){ }\gtrsim N^{3+\varepsilon}$ and $J_{3,2}(N) \gg N^{3} \log N$ using basic results from analytic number theory. In fact in can be also be proved that 
+
+$$
+J_{3,2}(N)=\frac{18}{\pi^{2}} N^{3} \log N+\frac{3}{\pi^{2}}\left(12 \gamma-6 \frac{\zeta^{\prime}}{\zeta}(2)-5\right) N^{3}+O\left(N^{5 / 2} \log N\right)
+$$
+
+where $\gamma$ is the Euler's constant $\zeta(s)$ denote Riemann zeta function, for a full proof see [12]. In particular, we see that $\varepsilon$ cannot be omitted in the main conjecture in the case $n=2$. The following exposition is based on [Google Drive].
+
+\begin{lem}\label{lem:quadratic system}
+If $x_{1}, x_{2}, x_{3}, y_{1}, y_{2}, y_{3}$ satisfies the system of equations    
+
+
+
+\begin{equation}\label{eq:sysmte}
+\left\{\begin{array}{l}
+x_{1}+x_{2}+x_{3}=y_{1}+y_{2}+x_{3}  \\
+x_{1}^{2}+x_{2}^{2}+x_{3}^{2}=y_{1}^{2}+y_{2}^{2}+y_{3}^{2}
+\end{array}\right.
+\end{equation}
+
+then $\left(x_{1}-y_{3}\right)\left(x_{2}-y_{3}\right)=\left(y_{1}-x_{3}\right)\left(y_{2}-x_{3}\right)$.
+\end{lem}
+\begin{proof}
+ After rearranging, we have
+
+$$
+\left\{\begin{array}{l}
+x_{1}+x_{2}-y_{3}=y_{1}+y_{2}-x_{3} \\
+x_{1}^{2}+x_{2}^{2}-y_{3}^{2}=y_{1}^{2}+y_{2}^{2}-x_{3}^{2}
+\end{array}\right.
+$$
+
+By subtracting the second equation from the square of the first equation and applying the identity
+
+$$
+(a+b-c)^{2}-\left(a^{2}+b^{2}-c^{2}\right)=2(a-c)(b-c)
+$$
+
+we get $\left(x_{1}-y_{3}\right)\left(x_{2}-y_{3}\right)=\left(y_{1}-x_{3}\right)\left(y_{2}-x_{3}\right)$.
+\end{proof}
+
+\begin{cor}
+ For any $\varepsilon>0$, we have $J_{3,2}(N) \lesssim _{\varepsilon} N^{3+\varepsilon}$.
+\end{cor}
+\begin{proof}
+Note that $J_{3,2}(N)$ counts the number of solutions of the system (\ref{eq:sysmte}) with $1 \leq$ $x_{1}, x_{2}, x_{3}, y_{1}, y_{2}, y_{3} \leq N$. By the above lemma, we have $\left(x_{1}-y_{3}\right)\left(x_{2}-y_{3}\right)=\left(y_{1}-\right.$ $\left.x_{3}\right)\left(y_{2}-x_{3}\right)$. If $x_{1}, x_{2}, y_{3}$ are fixed, and $\left(x_{1}-y_{3}\right)\left(x_{2}-y_{3}\right) \neq 0$, then $y_{1}-x_{3}$ is a divisor of $\left|\left(x_{1}-y_{3}\right)\left(x_{2}-y_{3}\right)\right| \leq N^{2}$, so the number of choices of $y_{1}-x_{3}$ is
+
+$$
+2 d\left(\left|\left(x_{1}-y_{3}\right)\left(x_{2}-y_{3}\right)\right|\right) \lesssim _{\varepsilon} N^{\varepsilon}.
+$$
+
+And once $x_{1}, x_{2}, y_{3}, y_{1}-x_{3}, y_{2}-x_{3}$ are all fixed, then since
+
+$$
+x_{1}+x_{2}-y_{3}=\left(y_{1}-x_{3}\right)+\left(y_{2}-x_{3}\right)+x_{3},
+$$
+
+the choice for $x_{3}$ is unique, and therefore $y_{1}, y_{2}$ are also uniquely determined. And since the number of solutions of $\left(x_{1}-y_{3}\right)\left(x_{2}-y_{3}\right)=\left(y_{1}-x_{3}\right)\left(y_{2}-x_{3}\right)=0$ is $O(N^3)$, so $J_{3,2}(N)\lesssim_{\varepsilon}N^3 + N^{3+\varepsilon}\lesssim N^{3+\varepsilon}$.
+\end{proof}
+So, for quadratic Vinagradov we don't need fancy machinery from neither number theory or harmonic analysis, however to get a sharper lower bound some of the first is required which we now develop.
+
+(Add small description of mobius function)
+\begin{lem}
+ If $x>1$, then
+
+$$
+\sum_{n \leq x} \frac{\phi(n)}{n^{2}}=\frac{6}{\pi^{2}}\left(\log x+\gamma\right)+O(1)
+$$
+\end{lem}
+\begin{proof}
+ Note that for each $n \in \mathbb{N}, \phi(n)=\sum_{d \mid n} \mu(d) \frac{n}{d}=n \sum_{d \mid n} \frac{\mu(d)}{d}$. So we have
+
+$$
+\begin{aligned}
+\sum_{n \leq x} \frac{\phi(n)}{n^{2}} & =\sum_{n \leq x} \frac{1}{n} \sum_{d \mid n} \frac{\mu(d)}{d} \\
+& =\sum_{d \leq x} \frac{\mu(d)}{d} \sum_{d \mid n, n \leq x} \frac{1}{n} \\
+& =\sum_{d \leq x} \frac{\mu(d)}{d^{2}}\left(\log \frac{x}{d}+\gamma+O\left(\frac{d}{x}\right)\right) \\
+& =\left(\log x+\gamma\right) \sum_{d \leq x} \frac{\mu(d)}{d^{2}}-\sum_{d \leq x} \frac{\mu(d) \log d}{d^{2}}+\sum_{d \leq x} \frac{\mu(d)}{d} O\left(\frac{1}{x}\right) \\
+& =\left(\log x+\gamma\right) \sum_{d \leq x} \frac{\mu(d)}{d^{2}}-\sum_{d \leq x} \frac{\mu(d) \log d}{d^{2}}+O\left(\frac{\log x}{x}\right)
+\end{aligned}
+$$
+
+Since $\sum_{d=1}^{\infty} \frac{\mu(d)}{d^{2}}=\frac{1}{\zeta(2)}=\frac{6}{\pi^{2}}$, we have $\sum_{d \leq x} \frac{\mu(d)}{d^{2}}=\frac{6}{\pi^{2}}+O\left(\frac{1}{x}\right)$, by observing that $\sum_{d>x}\frac{1}{d^2}= O(\frac{1}{x})$. Observing that
+
+$$
+\left|\sum_{d \leq x} \frac{\mu(d) \log d}{d^{2}}\right| \leq \sum_{d \leq x} \frac{\log d}{d^{2}}=O(1)
+$$
+
+the asymptotic formula follows.
+\end{proof}
+\begin{thm}
+$J_{3,2}(N) \gg N^{3} \log N$.
+\end{thm}
+\begin{proof}
+Without loss of generality, we may assume $N \geq 4$. In view of Lemma \ref{lem:quadratic system}, it is crucial to give a lower bound on $\#\{a b=c d: 1 \leq a, b, c, d \leq \delta N\}$ for some constant $\delta>0$. Here we pick $c=1 / 4$ and let $M=\left\lfloor\frac{N}{4}\right\rfloor$, then $M \geq 1$. Let $\chi$ be the characteristic function $\chi_{[1, M]}$, then we have
+
+$$
+\begin{aligned}
+& \#\{a b=c d: 1 \leq a, b, c, d \leq M\} \\
+& =\sum_{m \leq M^{2}} \#\{a b=c d=m: 1 \leq a, b, c, d \leq M\} \\
+& =\sum_{m \leq M^{2}}\left(\sum_{d \mid m} \chi(d) \chi(m / d)\right)^{2} \\
+& =\sum_{d_{1}, d_{2} \leq M} \sum_{\substack{\left.\left[d_{1}, d_{2}\right]\right] m \\
+m \leq M^{2}}} \chi\left(m / d_{1}\right) \chi\left(m / d_{2}\right) \\
+& \geq \sum_{d_{1} \leq d_{2} \leq M} \sum_{\substack{\left.\left[d_{1}, d_{2}\right]\right] m \\
+m \leq M^{2}}} \chi\left(m / d_{1}\right)
+\end{aligned}
+$$
+
+The number of $m$ such that $\left[d_{1}, d_{2}\right] \mid m, m \leq \min \left(M^{2}, M d_{1}\right)=M d_{1}$ is $\left\lfloor\frac{M d_{1}}{\left[d_{1}, d_{2}\right]}\right\rfloor$, so
+
+$$
+\begin{aligned}
+& \#\{a b=c d: 1 \leq a, b, c, d \leq M\} \\
+& \geq \sum_{d_{1} \leq d_{2} \leq M} \frac{M d_{1}}{\left[d_{1}, d_{2}\right]}+O\left(M^{2}\right) \\
+& =M \sum_{d_{1} \leq d_{2} \leq M} \frac{\left(d_{1}, d_{2}\right)}{d_{2}}+O\left(M^{2}\right) \\
+& =M \sum_{d \leq M} d \sum_{\substack{\left(d_{1}, d_{2}\right)=d \\
+d_{1} \leq d_{2} \leq M}} \frac{1}{d_{2}}+O\left(M^{2}\right)
+\end{aligned}
+$$
+
+Let $d=\left(d_{1}, d_{2}\right), d_{1}=d e_{1}, d_{2}=d e_{2}$, then $\left(e_{1}, e_{2}\right)=1$. So we have
+
+$$
+\begin{aligned}
+& \#\{a b=c d: 1 \leq a, b, c, d \leq M\} \\
+& \geq M \sum_{d \leq M} \sum_{\substack{\left(e_{1}, e_{2}\right)=1 \\
+e_{1} \leq e_{2} \leq M / d}} \frac{1}{e_{2}}+O\left(M^{2}\right) \\
+& =M \sum_{d \leq M} \sum_{e \leq M / d} \frac{\phi(e)}{e}+O\left(M^{2}\right) \\
+& =M \sum_{d \leq M} \frac{\phi(d)}{d} \sum_{e \leq M / d} 1+O\left(M^{2}\right) \\
+& =M \sum_{d \leq M} \frac{\phi(d)}{d}(M / d+O(1))+O\left(M^{2}\right) \\
+& =M^{2} \sum_{d \leq M} \frac{\phi(d)}{d^{2}}+O\left(M \sum_{d \leq M} \frac{\phi(d)}{d}\right)+O\left(M^{2}\right) \\
+& =\frac{6}{\pi^{2}} M^{2}\left(\log M+\gamma\right)+O\left(M^{2}\right) \\
+& \gg M^{2} \log M
+\end{aligned}
+$$
+
+Let $a=x_{1}-y_{3}, b=x_{2}-y_{3}, c=y_{1}-x_{3}, d=y_{2}-x_{3}$, then by Lemma \ref{lem:quadratic system},
+
+
+\begin{equation}\label{eq:1}
+a b=c d 
+\end{equation}
+
+
+And since $x_{1}+x_{2}-y_{3}=\left(y_{1}-x_{3}\right)+\left(y_{2}-x_{3}\right)+x_{3}$, then
+
+
+\begin{equation}\label{eq:2}
+a+b+y_{3}=c+d+x_{3} . 
+\end{equation}
+
+
+Moreover, it is easy to check that the equations (\ref{eq:1}) and (\ref{eq:2}) imply that $x_{1}, x_{2}, x_{3}, y_{1}, y_{2}, y_{3}$ is a solution of the system (\ref{eq:sysmte}). And if we restrict $1 \leq a, b, c, d \leq M$, then $|a+b-c-d| \leq$ $2 M \leq N / 2$, so there are at least $M$ pairs of $\left(x_{3}, y_{3}\right)$ with $1 \leq x_{3}, y_{3} \leq N-M$ such that $a+b-c-d=x_{3}-y_{3}$. Moreover, for such pair $\left(x_{3}, y_{3}\right)$, the four integers $x_{1}=y_{3}+a, x_{2}=y_{3}+b, y_{1}=x_{3}+c, y_{2}=x_{3}+d$ are all within $[1, N]$. Therefore,
+
+$$
+J_{3,2}(N) \geq M \#\{a b=c d: 1 \leq a, b, c, d \leq M\} \gg M^{3} \log M \gg N^{3} \log N
+$$
+\end{proof}
+
+
+\subsection{A note on the general case}
+Next, we examine what happens at the critical exponent in higher dimensions. In fact, in [Schippa], the author demonstrated how to construct an iteration such that, given the bound $\Dec_6(\delta) \lesssim \log(\delta^{-1})^{O(1)}$ for the parabola, one can achieve an improvement for the decoupling constant for the cubic moment curve. Denoting this constant by $D_{12}$, we have:
+\begin{equation*}
+    \mathcal{D}_{12}(\delta) \leq \exp \left(O\left(\frac{\log \delta^{-1}}{\log \left(\log \delta^{-1}\right)}\right)\right).
+\end{equation*}
+
+To accomplish this, one essentially follows the steps outlined in the section on improving the parabola case. The two main ingredients that facilitate this are the strength of the results by Guth, Maldague, and Hong, since the improvement applies to a much broader class of curves (see the Theorem in the next chapter), and the fact that in the $k = 3$ case, $p_3 = 12$ is the critical exponent. Instead of having two bilinear asymmetric constants, we effectively have only one, as the other is just the standard bilinear one.
+
+
+On the other hand, not much is known about the lower bound. As in the 2d case one is hopeful in trying to take advantage of number theory by getting a lower bound for cubic Vinagradov. However, this approach seems less promising because it is commonly believed that only quadratic Vinogradov requires the $\varepsilon$ dependency in the main conjecture, see [WooleyICM]. With this in mind, the best one can do is a constant lower bound by using Theorem \ref{thm:lower bound vinogradov}, i.e testing the inequality with a cubic exponential sum.
